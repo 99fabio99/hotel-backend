@@ -1,12 +1,15 @@
 package com.fabiozanela.hotel.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -23,6 +26,9 @@ public class Estacionamento implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "empresa_id")
 	private Empresa empresa;
+	
+	@ManyToMany(mappedBy="quartos")
+	private List<Agenda> agendas = new ArrayList<>();
 	
 	public Estacionamento() {
 		
@@ -66,6 +72,14 @@ public class Estacionamento implements Serializable {
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
+	}
+
+	public List<Agenda> getAgendas() {
+		return agendas;
+	}
+
+	public void setAgendas(List<Agenda> agendas) {
+		this.agendas = agendas;
 	}
 
 	@Override

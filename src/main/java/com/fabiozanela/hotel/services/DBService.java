@@ -7,6 +7,7 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fabiozanela.hotel.domain.Agenda;
 import com.fabiozanela.hotel.domain.Caracteristica;
 import com.fabiozanela.hotel.domain.Categoria;
 import com.fabiozanela.hotel.domain.Cliente;
@@ -16,7 +17,9 @@ import com.fabiozanela.hotel.domain.Estacionamento;
 import com.fabiozanela.hotel.domain.Item;
 import com.fabiozanela.hotel.domain.PerfilQuarto;
 import com.fabiozanela.hotel.domain.Quarto;
+import com.fabiozanela.hotel.domain.enums.EstadoQuarto;
 import com.fabiozanela.hotel.domain.enums.TipoCliente;
+import com.fabiozanela.hotel.repositories.AgendaRepository;
 import com.fabiozanela.hotel.repositories.CaracteristicaRepository;
 import com.fabiozanela.hotel.repositories.CategoriaRepository;
 import com.fabiozanela.hotel.repositories.ClienteRepository;
@@ -56,6 +59,9 @@ public class DBService {
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private AgendaRepository agendaRepository;
 	
 	public void instantiateTestDatebase() throws ParseException {
 		
@@ -140,8 +146,30 @@ public class DBService {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		Cliente cli1 = new Cliente(null, "Fabio Miranda Zanela", "99988877766", "fabio.fmz18@hotmail.com", sdf.parse("06/10/1995"), TipoCliente.PESSOAFISICA, null);
+		
 		cli1.getTelefones().addAll(Arrays.asList("2312312312", "32131231231"));
+		
 		clienteRepository.saveAll(Arrays.asList(cli1));
-	}
+		
+		Agenda age1 = new Agenda(null, sdf.parse("21/02/2019"), EstadoQuarto.OCUPADO);
+		Agenda age2 = new Agenda(null, sdf.parse("22/02/2019"), EstadoQuarto.OCUPADO);
+		Agenda age3 = new Agenda(null, sdf.parse("23/02/2019"), EstadoQuarto.OCUPADO);
+		Agenda age4 = new Agenda(null, sdf.parse("24/02/2019"), EstadoQuarto.OCUPADO);
+		
+		age1.getQuartos().add(qua1);
+		age2.getQuartos().add(qua1);
+		age3.getQuartos().add(qua1);
+		age4.getQuartos().add(qua1);
+		qua1.getAgendas().addAll(Arrays.asList(age1, age2, age3, age4));
+		
+		age1.getEstacionamentos().add(est1);
+		age2.getEstacionamentos().add(est1);
+		age3.getEstacionamentos().add(est1);
+		age4.getEstacionamentos().add(est1);
+		est1.getAgendas().addAll(Arrays.asList(age1, age2, age3, age4));
+		
+		agendaRepository.saveAll(Arrays.asList(age1, age2, age3, age4));
+		
+		}
 
 }
