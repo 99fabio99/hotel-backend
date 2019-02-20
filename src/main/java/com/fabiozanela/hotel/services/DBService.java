@@ -15,10 +15,14 @@ import com.fabiozanela.hotel.domain.Empresa;
 import com.fabiozanela.hotel.domain.Endereco;
 import com.fabiozanela.hotel.domain.Estacionamento;
 import com.fabiozanela.hotel.domain.Item;
+import com.fabiozanela.hotel.domain.Pagamento;
+import com.fabiozanela.hotel.domain.PagamentoComCartao;
+import com.fabiozanela.hotel.domain.PagamentoComDinheiro;
 import com.fabiozanela.hotel.domain.PerfilQuarto;
 import com.fabiozanela.hotel.domain.Quarto;
 import com.fabiozanela.hotel.domain.Reserva;
 import com.fabiozanela.hotel.domain.Veiculo;
+import com.fabiozanela.hotel.domain.enums.EstadoPagamento;
 import com.fabiozanela.hotel.domain.enums.EstadoQuarto;
 import com.fabiozanela.hotel.domain.enums.TipoCliente;
 import com.fabiozanela.hotel.repositories.AgendaRepository;
@@ -29,6 +33,7 @@ import com.fabiozanela.hotel.repositories.EmpresaRepository;
 import com.fabiozanela.hotel.repositories.EnderecoRepository;
 import com.fabiozanela.hotel.repositories.EstacionamentoRepository;
 import com.fabiozanela.hotel.repositories.ItemRepository;
+import com.fabiozanela.hotel.repositories.PagamentoRepository;
 import com.fabiozanela.hotel.repositories.PerfilQuartoRepository;
 import com.fabiozanela.hotel.repositories.QuartoRepository;
 import com.fabiozanela.hotel.repositories.ReservaRepository;
@@ -72,6 +77,9 @@ public class DBService {
 	
 	@Autowired
 	private VeiculoRepository veiculoRepository;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 	
 	public void instantiateTestDatebase() throws ParseException {
 		
@@ -164,7 +172,15 @@ public class DBService {
 		Reserva res1 = new Reserva(null, sdf.parse("21/02/2019"), sdf.parse("24/02/2019"), "Teseeeeeeeeeee", 2, 1);
 		Reserva res2 = new Reserva(null, sdf.parse("21/02/2019"), sdf.parse("22/02/2019"), "Teseeeeeeeeeee", 1, 0);
 		
+		Pagamento pag1 = new PagamentoComDinheiro(null, EstadoPagamento.QUITADO, res1, 0.0);
+		res1.setPagamento(pag1);
+		
+		Pagamento pag2 = new PagamentoComCartao(null, EstadoPagamento.PENDENTE, res2, 3, 0.0);
+		res2.setPagamento(pag2);
+		
 		reservaRepository.saveAll(Arrays.asList(res1, res2));
+		
+		pagamentoRepository.saveAll(Arrays.asList(pag1, pag2));
 		
 		Agenda age1 = new Agenda(null, sdf.parse("21/02/2019"), EstadoQuarto.OCUPADO, res1);
 		Agenda age2 = new Agenda(null, sdf.parse("22/02/2019"), EstadoQuarto.OCUPADO, res1);

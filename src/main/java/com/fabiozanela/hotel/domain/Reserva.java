@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -34,6 +35,9 @@ public class Reserva implements Serializable {
 	
 	@OneToMany(mappedBy="reserva", cascade= CascadeType.ALL)
 	private List<Agenda> agendas = new ArrayList<>();
+	
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="reserva")
+	private Pagamento pagamento;
 
 	public Reserva() {
 	}
@@ -103,6 +107,14 @@ public class Reserva implements Serializable {
 
 	public void setAgendas(List<Agenda> agendas) {
 		this.agendas = agendas;
+	}
+
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
 	}
 
 	@Override
