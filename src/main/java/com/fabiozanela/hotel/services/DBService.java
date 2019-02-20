@@ -17,6 +17,7 @@ import com.fabiozanela.hotel.domain.Estacionamento;
 import com.fabiozanela.hotel.domain.Item;
 import com.fabiozanela.hotel.domain.PerfilQuarto;
 import com.fabiozanela.hotel.domain.Quarto;
+import com.fabiozanela.hotel.domain.Veiculo;
 import com.fabiozanela.hotel.domain.enums.EstadoQuarto;
 import com.fabiozanela.hotel.domain.enums.TipoCliente;
 import com.fabiozanela.hotel.repositories.AgendaRepository;
@@ -29,6 +30,7 @@ import com.fabiozanela.hotel.repositories.EstacionamentoRepository;
 import com.fabiozanela.hotel.repositories.ItemRepository;
 import com.fabiozanela.hotel.repositories.PerfilQuartoRepository;
 import com.fabiozanela.hotel.repositories.QuartoRepository;
+import com.fabiozanela.hotel.repositories.VeiculoRepository;
 
 @Service
 public class DBService {
@@ -62,6 +64,9 @@ public class DBService {
 	
 	@Autowired
 	private AgendaRepository agendaRepository;
+	
+	@Autowired
+	private VeiculoRepository veiculoRepository;
 	
 	public void instantiateTestDatebase() throws ParseException {
 		
@@ -169,6 +174,12 @@ public class DBService {
 		est1.getAgendas().addAll(Arrays.asList(age1, age2, age3, age4));
 		
 		agendaRepository.saveAll(Arrays.asList(age1, age2, age3, age4));
+		
+		Veiculo vei1 = new Veiculo(null, "WAS-1234", "GOL", "Azul", 1995, age1);
+		
+		age1.getVeiculos().add(vei1);
+		
+		veiculoRepository.saveAll(Arrays.asList(vei1));
 		
 		}
 

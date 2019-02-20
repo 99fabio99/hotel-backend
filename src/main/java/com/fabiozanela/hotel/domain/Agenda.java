@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fabiozanela.hotel.domain.enums.EstadoQuarto;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -46,6 +48,9 @@ public class Agenda implements Serializable {
 	)
 	private List<Estacionamento> estacionamentos = new ArrayList<>();
 	
+	@OneToMany(mappedBy="agenda", cascade= CascadeType.ALL)
+	private List<Veiculo> veiculos = new ArrayList<>();
+	
 	public Agenda() {}
 
 	public Agenda(Integer id, Date date, EstadoQuarto estado) {
@@ -77,6 +82,14 @@ public class Agenda implements Serializable {
 
 	public void setEstado(Integer estado) {
 		this.estado = estado;
+	}
+
+	public List<Veiculo> getVeiculos() {
+		return veiculos;
+	}
+
+	public void setVeiculos(List<Veiculo> veiculos) {
+		this.veiculos = veiculos;
 	}
 
 	@Override
