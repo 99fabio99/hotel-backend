@@ -17,6 +17,7 @@ import com.fabiozanela.hotel.domain.Estacionamento;
 import com.fabiozanela.hotel.domain.Item;
 import com.fabiozanela.hotel.domain.PerfilQuarto;
 import com.fabiozanela.hotel.domain.Quarto;
+import com.fabiozanela.hotel.domain.Reserva;
 import com.fabiozanela.hotel.domain.Veiculo;
 import com.fabiozanela.hotel.domain.enums.EstadoQuarto;
 import com.fabiozanela.hotel.domain.enums.TipoCliente;
@@ -30,6 +31,7 @@ import com.fabiozanela.hotel.repositories.EstacionamentoRepository;
 import com.fabiozanela.hotel.repositories.ItemRepository;
 import com.fabiozanela.hotel.repositories.PerfilQuartoRepository;
 import com.fabiozanela.hotel.repositories.QuartoRepository;
+import com.fabiozanela.hotel.repositories.ReservaRepository;
 import com.fabiozanela.hotel.repositories.VeiculoRepository;
 
 @Service
@@ -61,6 +63,9 @@ public class DBService {
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private ReservaRepository reservaRepository;
 	
 	@Autowired
 	private AgendaRepository agendaRepository;
@@ -156,10 +161,17 @@ public class DBService {
 		
 		clienteRepository.saveAll(Arrays.asList(cli1));
 		
-		Agenda age1 = new Agenda(null, sdf.parse("21/02/2019"), EstadoQuarto.OCUPADO);
-		Agenda age2 = new Agenda(null, sdf.parse("22/02/2019"), EstadoQuarto.OCUPADO);
-		Agenda age3 = new Agenda(null, sdf.parse("23/02/2019"), EstadoQuarto.OCUPADO);
-		Agenda age4 = new Agenda(null, sdf.parse("24/02/2019"), EstadoQuarto.OCUPADO);
+		Reserva res1 = new Reserva(null, sdf.parse("21/02/2019"), sdf.parse("24/02/2019"), "Teseeeeeeeeeee", 2, 1);
+		Reserva res2 = new Reserva(null, sdf.parse("21/02/2019"), sdf.parse("22/02/2019"), "Teseeeeeeeeeee", 1, 0);
+		
+		reservaRepository.saveAll(Arrays.asList(res1, res2));
+		
+		Agenda age1 = new Agenda(null, sdf.parse("21/02/2019"), EstadoQuarto.OCUPADO, res1);
+		Agenda age2 = new Agenda(null, sdf.parse("22/02/2019"), EstadoQuarto.OCUPADO, res1);
+		Agenda age3 = new Agenda(null, sdf.parse("23/02/2019"), EstadoQuarto.OCUPADO, res1);
+		Agenda age4 = new Agenda(null, sdf.parse("24/02/2019"), EstadoQuarto.OCUPADO, res1);
+		
+		Agenda age5 = new Agenda(null, sdf.parse("21/02/2019"), EstadoQuarto.OCUPADO, res2);
 		
 		age1.getQuartos().add(qua1);
 		age2.getQuartos().add(qua1);
@@ -167,13 +179,22 @@ public class DBService {
 		age4.getQuartos().add(qua1);
 		qua1.getAgendas().addAll(Arrays.asList(age1, age2, age3, age4));
 		
+		age5.getQuartos().add(qua2);
+		qua2.getAgendas().add(age5);
+		
 		age1.getEstacionamentos().add(est1);
 		age2.getEstacionamentos().add(est1);
 		age3.getEstacionamentos().add(est1);
 		age4.getEstacionamentos().add(est1);
 		est1.getAgendas().addAll(Arrays.asList(age1, age2, age3, age4));
 		
-		agendaRepository.saveAll(Arrays.asList(age1, age2, age3, age4));
+		age5.getEstacionamentos().add(est2);
+		est2.getAgendas().add(age5);
+		
+		res1.getAgendas().addAll(Arrays.asList(age1, age2, age3, age4));
+		res2.getAgendas().addAll(Arrays.asList(age5));
+		
+		agendaRepository.saveAll(Arrays.asList(age1, age2, age3, age4, age5));
 		
 		Veiculo vei1 = new Veiculo(null, "WAS-1234", "GOL", "Azul", 1995, age1);
 		

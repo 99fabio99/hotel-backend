@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fabiozanela.hotel.domain.enums.EstadoQuarto;
@@ -31,6 +32,10 @@ public class Agenda implements Serializable {
 	private Date date;
 	
 	private Integer estado;
+	
+	@ManyToOne
+	@JoinColumn(name = "reserva_id")
+	private Reserva reserva;
 	
 	@JsonIgnore
 	@ManyToMany
@@ -53,11 +58,12 @@ public class Agenda implements Serializable {
 	
 	public Agenda() {}
 
-	public Agenda(Integer id, Date date, EstadoQuarto estado) {
+	public Agenda(Integer id, Date date, EstadoQuarto estado, Reserva reserva) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.estado = (estado == null) ? null : estado.getCod();
+		this.reserva = reserva;
 	}
 
 	public Integer getId() {
@@ -90,6 +96,14 @@ public class Agenda implements Serializable {
 
 	public void setVeiculos(List<Veiculo> veiculos) {
 		this.veiculos = veiculos;
+	}
+
+	public Reserva getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
 	}
 
 	@Override
