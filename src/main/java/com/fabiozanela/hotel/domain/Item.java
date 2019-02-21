@@ -1,6 +1,8 @@
 package com.fabiozanela.hotel.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Item implements Serializable {
@@ -21,6 +26,7 @@ public class Item implements Serializable {
 	private String codigoBarro;
 	private int quantidade;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "item_id")
 	private Empresa empresa;
@@ -28,6 +34,10 @@ public class Item implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="id.item")
+	private Set<ItemConsumido> itens = new HashSet<>();
 
 	public Item() {
 		super();
@@ -92,12 +102,21 @@ public class Item implements Serializable {
 		this.empresa = empresa;
 	}
 
+	@JsonIgnore
 	public Categoria getCategoria() {
 		return categoria;
 	}
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public Set<ItemConsumido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemConsumido> itens) {
+		this.itens = itens;
 	}
 
 	@Override

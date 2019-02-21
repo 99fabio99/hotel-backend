@@ -15,6 +15,7 @@ import com.fabiozanela.hotel.domain.Empresa;
 import com.fabiozanela.hotel.domain.Endereco;
 import com.fabiozanela.hotel.domain.Estacionamento;
 import com.fabiozanela.hotel.domain.Item;
+import com.fabiozanela.hotel.domain.ItemConsumido;
 import com.fabiozanela.hotel.domain.Pagamento;
 import com.fabiozanela.hotel.domain.PagamentoComCartao;
 import com.fabiozanela.hotel.domain.PagamentoComDinheiro;
@@ -32,6 +33,7 @@ import com.fabiozanela.hotel.repositories.ClienteRepository;
 import com.fabiozanela.hotel.repositories.EmpresaRepository;
 import com.fabiozanela.hotel.repositories.EnderecoRepository;
 import com.fabiozanela.hotel.repositories.EstacionamentoRepository;
+import com.fabiozanela.hotel.repositories.ItemConsumidoRepository;
 import com.fabiozanela.hotel.repositories.ItemRepository;
 import com.fabiozanela.hotel.repositories.PagamentoRepository;
 import com.fabiozanela.hotel.repositories.PerfilQuartoRepository;
@@ -80,6 +82,9 @@ public class DBService {
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemConsumidoRepository itemConsumidoRepository;
 	
 	public void instantiateTestDatebase() throws ParseException {
 		
@@ -217,6 +222,21 @@ public class DBService {
 		age1.getVeiculos().add(vei1);
 		
 		veiculoRepository.saveAll(Arrays.asList(vei1));
+		
+		
+		ItemConsumido itemC1 = new ItemConsumido(res1, item1, 25.0, 3);
+		ItemConsumido itemC2 = new ItemConsumido(res1, item2, 22.0, 1);
+		ItemConsumido itemC3 = new ItemConsumido(res1, item3, 5.0, 1);
+		ItemConsumido itemC4 = new ItemConsumido(res2, item1, 2.0, 1);
+		
+		res1.getItens().addAll(Arrays.asList(itemC1, itemC2, itemC3));
+		res2.getItens().addAll(Arrays.asList(itemC4));
+		
+		item1.getItens().addAll(Arrays.asList(itemC1, itemC4));
+		item2.getItens().addAll(Arrays.asList(itemC2));
+		item3.getItens().addAll(Arrays.asList(itemC3));
+		
+		itemConsumidoRepository.saveAll(Arrays.asList(itemC1, itemC2, itemC3, itemC4));
 		
 		}
 

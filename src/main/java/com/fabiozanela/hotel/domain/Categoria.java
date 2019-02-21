@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Categoria implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -21,6 +23,7 @@ public class Categoria implements Serializable {
 	
 	private String nome;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="categoria", cascade= CascadeType.ALL)
 	private List<Item> itens = new ArrayList<>();
 	
@@ -48,6 +51,7 @@ public class Categoria implements Serializable {
 		this.nome = nome;
 	}
 
+	@JsonIgnore
 	public List<Item> getItens() {
 		return itens;
 	}

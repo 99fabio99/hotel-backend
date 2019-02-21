@@ -3,7 +3,9 @@ package com.fabiozanela.hotel.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -38,6 +40,9 @@ public class Reserva implements Serializable {
 	
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="reserva")
 	private Pagamento pagamento;
+	
+	@OneToMany(mappedBy="id.reserva")
+	private Set<ItemConsumido> itens = new HashSet<>();
 
 	public Reserva() {
 	}
@@ -115,6 +120,14 @@ public class Reserva implements Serializable {
 
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
+	}
+
+	public Set<ItemConsumido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemConsumido> itens) {
+		this.itens = itens;
 	}
 
 	@Override

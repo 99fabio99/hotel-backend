@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Estacionamento implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -23,10 +25,12 @@ public class Estacionamento implements Serializable {
 	private String numero;
 	private String bloco;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "empresa_id")
 	private Empresa empresa;
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy="quartos")
 	private List<Agenda> agendas = new ArrayList<>();
 	
@@ -66,6 +70,7 @@ public class Estacionamento implements Serializable {
 		this.bloco = bloco;
 	}
 	
+	@JsonIgnore
 	public Empresa getEmpresa() {
 		return empresa;
 	}

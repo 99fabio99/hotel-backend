@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class PerfilQuarto implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,9 +26,11 @@ public class PerfilQuarto implements Serializable {
 	private Double adulto;
 	private Double crianca;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="perfilQuarto")
 	private List<Quarto> quartos = new ArrayList<>(); 
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy="perfilQuartos")
 	private List<Caracteristica> caracteristicas = new ArrayList<>();
 	
