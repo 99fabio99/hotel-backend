@@ -224,10 +224,10 @@ public class DBService {
 		veiculoRepository.saveAll(Arrays.asList(vei1));
 		
 		
-		ItemConsumido itemC1 = new ItemConsumido(res1, item1, 25.0, 3);
-		ItemConsumido itemC2 = new ItemConsumido(res1, item2, 22.0, 1);
-		ItemConsumido itemC3 = new ItemConsumido(res1, item3, 5.0, 1);
-		ItemConsumido itemC4 = new ItemConsumido(res2, item1, 2.0, 1);
+		ItemConsumido itemC1 = new ItemConsumido(res1, item1, 25.1, 3);
+		ItemConsumido itemC2 = new ItemConsumido(res1, item2, 22.2, 1);
+		ItemConsumido itemC3 = new ItemConsumido(res1, item3, 5.6, 1);
+		ItemConsumido itemC4 = new ItemConsumido(res2, item1, 2.8, 4);
 		
 		res1.getItens().addAll(Arrays.asList(itemC1, itemC2, itemC3));
 		res2.getItens().addAll(Arrays.asList(itemC4));

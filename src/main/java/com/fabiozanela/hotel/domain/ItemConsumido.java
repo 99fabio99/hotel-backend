@@ -29,7 +29,7 @@ public class ItemConsumido implements Serializable {
 	}
 	
 	public double getSubTotal() {
-		return (this.valor * this.quantidade);
+		return (this.quantidade * this.valor);
 	}
 	
 	
@@ -41,6 +41,7 @@ public class ItemConsumido implements Serializable {
 	public void setReserva(Reserva reserva) {
 		this.id.setReserva(reserva);
 	}
+	
 	
 	public Item getItem() {
 		return this.id.getItem();

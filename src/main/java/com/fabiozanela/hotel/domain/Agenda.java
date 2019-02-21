@@ -33,6 +33,7 @@ public class Agenda implements Serializable {
 	
 	private Integer estado;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "reserva_id")
 	private Reserva reserva;
@@ -98,6 +99,7 @@ public class Agenda implements Serializable {
 		this.veiculos = veiculos;
 	}
 
+	@JsonIgnore
 	public Reserva getReserva() {
 		return reserva;
 	}
