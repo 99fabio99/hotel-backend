@@ -168,7 +168,7 @@ public class DBService {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
-		Cliente cli1 = new Cliente(null, "Fabio Miranda Zanela", "99988877766", "fabio.fmz18@hotmail.com", sdf.parse("06/10/1995"), TipoCliente.PESSOAFISICA, null);
+		Cliente cli1 = new Cliente(null, "Fabio Miranda Zanela", "99988877766", "fabio.fmz18@hotmail.com", sdf.parse("06/10/1995"), TipoCliente.PESSOAFISICA, end2);
 		
 		cli1.getTelefones().addAll(Arrays.asList("2312312312", "32131231231"));
 		
