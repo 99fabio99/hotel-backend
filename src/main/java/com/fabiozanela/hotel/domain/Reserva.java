@@ -16,7 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Reserva implements Serializable {
@@ -107,7 +106,6 @@ public class Reserva implements Serializable {
 		this.numeroCriancas = numeroCriancas;
 	}
 
-	
 	public List<Agenda> getAgendas() {
 		return agendas;
 	}

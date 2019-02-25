@@ -23,13 +23,13 @@ public enum EstadoQuarto {
 		return descricao;
 	}
 	
-	public static TipoCliente toEnum(Integer cod) {
+	public static EstadoQuarto toEnum(Integer cod) {
 		
 		if (cod == null) {
 			return null;
 		}
 		
-		for (TipoCliente x : TipoCliente.values()) {
+		for (EstadoQuarto x : EstadoQuarto.values()) {
 			if (cod.equals(x.getCod())) {
 				return x;
 			}
