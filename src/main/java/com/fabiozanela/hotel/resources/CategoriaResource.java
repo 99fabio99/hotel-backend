@@ -14,36 +14,40 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.fabiozanela.hotel.domain.PerfilQuarto;
-import com.fabiozanela.hotel.dto.PerfilQuartoDTO;
-import com.fabiozanela.hotel.services.PerfilQuartoService;
+import com.fabiozanela.hotel.domain.Categoria;
+import com.fabiozanela.hotel.dto.CategoriaDTO;
+import com.fabiozanela.hotel.services.CategoriaService;
 
 @RestController
-@RequestMapping(value="/perfisQuarto")
-public class PerfilQuartoResource {
+@RequestMapping(value="/categorias")
+public class CategoriaResource {
 	
 	@Autowired
-	private PerfilQuartoService perfilQuartoService;
+	private CategoriaService categoriaService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<PerfilQuartoDTO>> find(){
-		return ResponseEntity.ok().body(perfilQuartoService.findAll());
+	public ResponseEntity<List<CategoriaDTO>> find(){
+		return ResponseEntity.ok().body(categoriaService.findAll());
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody PerfilQuartoDTO objDto) {
-		PerfilQuarto obj = perfilQuartoService.convertaParaClasse(objDto);
-		obj = perfilQuartoService.insert(obj);
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto) {
+		Categoria obj = categoriaService.insert(objDto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 			.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody PerfilQuartoDTO objDto, @PathVariable Integer id) {
-		PerfilQuarto obj = perfilQuartoService.convertaParaClasse(objDto);
-		obj.setId(id);
-		obj = perfilQuartoService.update(obj);
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) {
+		objDto.setId(id);
+		categoriaService.update(objDto);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		categoriaService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 

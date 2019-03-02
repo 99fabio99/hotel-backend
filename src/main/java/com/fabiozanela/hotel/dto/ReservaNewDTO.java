@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fabiozanela.hotel.domain.Cliente;
 import com.fabiozanela.hotel.domain.Pagamento;
 import com.fabiozanela.hotel.domain.Reserva;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -27,6 +28,8 @@ public class ReservaNewDTO implements Serializable {
 
 	private List<AgendaDTO> agendas = new ArrayList<>();
 	
+	private Cliente cliente;
+	
 	public ReservaNewDTO() {}
 
 	public ReservaNewDTO(Reserva reserva) {
@@ -37,6 +40,7 @@ public class ReservaNewDTO implements Serializable {
 		this.numeroAdultos = reserva.getNumeroAdultos();
 		this.numeroCriancas = reserva.getNumeroCriancas();
 		this.pagamento = reserva.getPagamento();
+		this.cliente = reserva.getCliente();
 	}
 
 	public Integer getId() {
@@ -101,6 +105,14 @@ public class ReservaNewDTO implements Serializable {
 
 	public void setAgendas(List<AgendaDTO> agendas) {
 		this.agendas = agendas;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	
 	

@@ -53,7 +53,7 @@ public class ReservaService {
 		if (this.eReservado(objDTO)) {
 
 			Reserva reserva = new Reserva(objDTO.getId(), objDTO.getDataInicio(), objDTO.getDataFim(),
-					objDTO.getObservacao(), objDTO.getNumeroAdultos(), objDTO.getNumeroCriancas());
+					objDTO.getObservacao(), objDTO.getNumeroAdultos(), objDTO.getNumeroCriancas(), objDTO.getCliente());
 
 			reserva = reservaRepository.save(reserva);
 			for (AgendaDTO agendaDTO : objDTO.getAgendas()) {
@@ -89,7 +89,7 @@ public class ReservaService {
 
 	public Reserva toDTO(ReservaNewDTO objDTO) {
 		Reserva reserva = new Reserva(objDTO.getId(), objDTO.getDataInicio(), objDTO.getDataFim(),
-				objDTO.getObservacao(), objDTO.getNumeroAdultos(), objDTO.getNumeroCriancas());
+				objDTO.getObservacao(), objDTO.getNumeroAdultos(), objDTO.getNumeroCriancas(), objDTO.getCliente());
 
 		for (AgendaDTO agendaDTO : objDTO.getAgendas()) {
 			Agenda agenda = new Agenda(agendaDTO.getId(), agendaDTO.getDate(), agendaDTO.getEstado(), reserva);

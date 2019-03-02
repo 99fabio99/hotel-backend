@@ -174,8 +174,8 @@ public class DBService {
 		
 		clienteRepository.saveAll(Arrays.asList(cli1));
 		
-		Reserva res1 = new Reserva(null, sdf.parse("21/02/2019"), sdf.parse("24/02/2019"), "Teseeeeeeeeeee", 2, 1);
-		Reserva res2 = new Reserva(null, sdf.parse("21/02/2019"), sdf.parse("22/02/2019"), "Teseeeeeeeeeee", 1, 0);
+		Reserva res1 = new Reserva(null, sdf.parse("21/02/2019"), sdf.parse("24/02/2019"), "Teseeeeeeeeeee", 2, 1, cli1);
+		Reserva res2 = new Reserva(null, sdf.parse("21/02/2019"), sdf.parse("22/02/2019"), "Teseeeeeeeeeee", 1, 0, cli1);
 		
 		Pagamento pag1 = new PagamentoComDinheiro(null, EstadoPagamento.QUITADO, res1, 0.0);
 		res1.setPagamento(pag1);

@@ -1,8 +1,10 @@
 package com.fabiozanela.hotel.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CollectionTable;
@@ -13,9 +15,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fabiozanela.hotel.domain.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Cliente implements Serializable {
@@ -41,6 +45,10 @@ public class Cliente implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="endereco_id")
 	private Endereco endereco;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="cliente")
+	private List<Reserva> reservas = new ArrayList<>();
 	
 	public Cliente() {}
 
@@ -117,6 +125,14 @@ public class Cliente implements Serializable {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
 	}
 
 	@Override

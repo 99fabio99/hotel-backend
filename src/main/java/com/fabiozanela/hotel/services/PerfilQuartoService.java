@@ -45,7 +45,7 @@ public class PerfilQuartoService {
 		return perfilQuartoDTO;
 	}
 	
-	public PerfilQuarto fromDTO(PerfilQuartoDTO objDTO) {
+	public PerfilQuarto convertaParaClasse(PerfilQuartoDTO objDTO) {
 		PerfilQuarto perfilQuarto = new PerfilQuarto(objDTO.getId(), objDTO.getNome(), objDTO.getValorBase(), objDTO.getAdulto(), objDTO.getCrianca());
 		for(CaracteristicaDTO aux : objDTO.getCaracteristicas()){
 			Caracteristica obj = caracteristicaRepository.findById(aux.getId()).get();

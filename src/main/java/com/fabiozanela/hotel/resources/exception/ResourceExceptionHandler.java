@@ -23,7 +23,7 @@ public class ResourceExceptionHandler {
 	@ExceptionHandler(ObjectConflict.class)
 	public ResponseEntity<StandardError> objectConflict(ObjectConflict e, HttpServletRequest request) {
 		
-		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.CONFLICT.value(), "Já existe", e.getMessage(), request.getRequestURI());
+		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.CONFLICT.value(), "Duplicado", e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(err);
 	}
 

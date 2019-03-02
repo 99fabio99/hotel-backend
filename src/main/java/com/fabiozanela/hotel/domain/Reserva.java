@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -43,12 +45,16 @@ public class Reserva implements Serializable {
 	
 	@OneToMany(mappedBy="id.reserva")
 	private Set<ItemConsumido> itens = new HashSet<>();
+	
+	@ManyToOne
+	@JoinColumn(name="cliente_id")
+	private Cliente cliente;
 
 	public Reserva() {
 	}
 
 	public Reserva(Integer id, Date dataInicio, Date dataFim, String observacao, Integer numeroAdultos,
-			Integer numeroCriancas) {
+			Integer numeroCriancas, Cliente cliente) {
 		super();
 		this.id = id;
 		this.dataInicio = dataInicio;
@@ -56,6 +62,7 @@ public class Reserva implements Serializable {
 		this.observacao = observacao;
 		this.numeroAdultos = numeroAdultos;
 		this.numeroCriancas = numeroCriancas;
+		this.cliente = cliente;
 	}
 
 	public Integer getId() {
@@ -128,6 +135,14 @@ public class Reserva implements Serializable {
 
 	public void setItens(Set<ItemConsumido> itens) {
 		this.itens = itens;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override
